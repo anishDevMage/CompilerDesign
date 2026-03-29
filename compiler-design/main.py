@@ -23,11 +23,17 @@ class LogicCalculator(QWidget):
             ('¬', 0, 2), ('→', 0, 3),
             ('∧', 1, 0), ('∨', 1, 1),
             ('(', 1, 2), (')', 1, 3),
+            ('⌫', 2, 0)
         ]
 
         for text, row, col in buttons:
             btn = QPushButton(text)
-            btn.clicked.connect(lambda _, t=text: self.add_symbol(t))
+            
+            if text == '⌫':
+                btn.clicked.connect(self.backspace)
+            else:
+                btn.clicked.connect(lambda _, t=text: self.add_symbol(t))
+
             grid.addWidget(btn, row, col)
 
         self.button = QPushButton("Evaluate")
@@ -48,6 +54,11 @@ class LogicCalculator(QWidget):
     def add_symbol(self, symbol):
         current = self.input_box.text()
         self.input_box.setText(current + symbol)
+    
+    # BACKSPACE
+    def backspace(self):
+        current = self.input_box.text()
+        self.input_box.setText(current[:-1])
 
     # CLEARING INPUT
     def clear_input(self):

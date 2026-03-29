@@ -38,5 +38,11 @@ class CalcParser(Parser):
     def expr(self, p):
         return p.expr
     
+    def error(self, p):
+        if p:
+            raise SyntaxError(f'Syntax error at token {p.value}')
+        else:
+            raise SyntaxError("Error at EOF")
+
 if __name__ == '__main__':
     parser = CalcParser()
