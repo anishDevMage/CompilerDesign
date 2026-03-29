@@ -4,40 +4,39 @@ from calclex import CalcLexer
 class CalcParser(Parser):
     tokens = CalcLexer.tokens
 
-    #GRAMMAR RULES AND ACTIONS
-    @_('expr PLUS term')
+    precedence = (
+        ('right', IMPLIES),
+        ('left', OR),
+        ('left', AND),
+        ('right', NOT),
+    )
+
+    @_('CONST')
     def expr(self, p):
-        return p.expr + p.term
-    
-    @_('expr MINUS term')
+        if p.CONST == 'T': 
+            return True 
+        else: 
+            return False
+        
+    @_('expr AND expr')
     def expr(self, p):
-        return p.expr - p.term
+        return p.expr0 and p.expr1
     
-    @_('term')
+    @_('expr OR expr')
     def expr(self, p):
-        return p.term
+        return p.expr0 or p.expr1
+
+    @_('NOT expr')
+    def expr(self, p):
+        return not p.expr
     
-    @_('term TIMES factor')
-    def term(self, p):
-        return p.term * p.factor
-
-    @_('term DIVIDE factor')
-    def term(self, p):
-        return p.term / p.factor
-
-    @_('factor')
-    def term(self, p):
-        return p.factor
-
-    @_('NUMBER')
-    def factor(self, p):
-        return p.NUMBER
-
+    @_('expr IMPLIES expr')
+    def expr(self, p):
+        return (not p.expr0) or p.expr1
+    
     @_('LPAREN expr RPAREN')
-    def factor(self, p):
+    def expr(self, p):
         return p.expr
     
-
-
 if __name__ == '__main__':
     parser = CalcParser()

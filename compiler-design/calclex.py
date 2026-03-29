@@ -3,46 +3,21 @@
 from sly import Lexer
 
 class CalcLexer(Lexer):
-    tokens = { NUMBER, ID, LPAREN, RPAREN, IF, ELSE, WHILE, PRINT,
-               PLUS, MINUS, TIMES, DIVIDE, ASSIGN,
-               EQ, LT, LE, GT, GE, NE }
-    
-    
-    literals = { '(', ')', '{', '}', ';' }
+    tokens = { CONST, LPAREN, RPAREN, AND, OR, NOT, IMPLIES}
 
     ignore = ' \t'
 
     #ignoring speical comments
     ignore_comments = r'\#.*'
-    ignore_newline = r'\n+'
 
-    ID      = r'[a-zA-Z_][a-zA-Z0-9_]*'
-    NUMBER  = r'\d+'
-    PLUS    = r'\+'
-    MINUS   = r'-'
-    TIMES   = r'\*'
-    DIVIDE  = r'/'
-    EQ      = r'=='
-    ASSIGN  = r'='
+    # ID      = r'[A-Z]'
+    IMPLIES = r'→'
+    CONST = r'[TFtf]'
     LPAREN  = r'\('
     RPAREN  = r'\)'
-    LE      = r'<='
-    LT      = r'<'
-    GE      = r'>='
-    GT      = r'>'
-    NE      = r'!='
-
-    @_(r'\d+')
-    def NUMBER(self, t):
-        t.value = int(t.value)
-        return t
-    
-    # Identifiers and Keywords  
-    # ID = r'[a-zA-Z_][a-zA-Z0-9_]*'
-    # ID['if'] = IF
-    # ID['else'] = ELSE
-    # ID['while'] = WHILE
-    # ID['print'] = PRINT
+    AND = r'∧'
+    OR = r'∨'
+    NOT = r'¬'
 
     # Line number tracking
     @_(r'\n+')

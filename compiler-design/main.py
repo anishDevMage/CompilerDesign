@@ -1,23 +1,39 @@
 from calclex import CalcLexer
 from calcparser import CalcParser
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QLabel
+
+def evaluate_expression(text):
+    lexer = CalcLexer()
+    parser = CalcParser()
+    
+    for tok in lexer.tokenize(text):
+        print('type=%r, value=%r' % (tok.type, tok.value))
+
+    parsed = parser.parse(lexer.tokenize(text))
+
+    return parsed
+
 
 def main():
     print("Hello from compiler-design!")
 
-    lexer = CalcLexer()
-    parser = CalcParser()
+    # lexer = CalcLexer()
+    # parser = CalcParser()
+    
+    # AND = r'∧'
+    # OR = r'∨'
+    # NOT = r'¬'
+    # IMPLIES = r'→'
 
-    # data = '''x = 3 + 
-    #             42 #this is a comment
-    #                 * (s - t)'''
+    # data = 'T ∧ F ∨ T ∧ F'
+    # data = 'T → F ∨ T'
+    # data = '(T ∨ F) ∧ F'
     
-    data = '5 - 2'
+    data = 'T ∨ (F ∧ F)'
+    result = evaluate_expression(data)
     
-    for tok in lexer.tokenize(data):
-        print('type=%r, value=%r' % (tok.type, tok.value))
 
     #IMPLEMENTING PARSER
-    result = parser.parse(lexer.tokenize(data))
     print(result)
 
 
