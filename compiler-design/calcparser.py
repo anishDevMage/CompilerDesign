@@ -4,6 +4,15 @@ from calclex import CalcLexer
 class CalcParser(Parser):
     tokens = CalcLexer.tokens
 
+    #GRAMMAR
+    # E -> E → E
+    # E -> E ∨ E
+    # E -> E ∧ E
+    # E -> ¬ E
+    # E -> ( E )
+    # E -> T
+    # E -> F
+
     precedence = (
         ('right', IMPLIES),
         ('left', OR),
