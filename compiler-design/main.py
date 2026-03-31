@@ -93,31 +93,11 @@ def evaluate_expression(text):
 
 
 def main():
-    print("Hello from compiler-design!")
-
-    # lexer = CalcLexer()
-    # parser = CalcParser()
-    
-    # AND = r'∧'
-    # OR = r'∨'
-    # NOT = r'¬'
-    # IMPLIES = r'→'
-
-    # data = 'T ∧ F ∨ T ∧ F'
-    # data = 'T → F ∨ T'
-    # data = '(T ∨ F) ∧ F'
-    
-    data = 'T ∨ (F ∧ F)'
-    result = evaluate_expression(data)
-    
-
-    #IMPLEMENTING PARSER
-    print(result)
-
-
-if __name__ == "__main__":
-    main()
     app = QApplication([])
     window = LogicCalculator()
     window.show()
     app.exec()
+
+
+if __name__ == "__main__":
+    main()
