@@ -69,7 +69,11 @@ class LogicCalculator(QWidget):
         text = self.input_box.text()
         try:
             result = evaluate_expression(text)
-            self.result_label.setText(f"Result: {result}")
+            # self.result_label.setText(f"Result: {result.value}")
+            self.result_label.setText(
+                f"Value: {result['value']} | Prefix: {result['prefix']}"
+            )
+
         except Exception as e:
             self.result_label.setText(f"Error: {e}")
 
